@@ -1,16 +1,16 @@
 dir= getDirectory("Choose a Directory");
-pathexp = dir+'exp/'
-pathss = dir+'ss/'
+pathzero = dir+'zero/'
+pathone = dir+'one/'
 // File.makeDirectory('concatenated-stacks')
 pathcat = dir+'concatenated-stacks/'
 //print(pathexp)
 
-listexp = getFileList(pathexp)
-listss = getFileList(pathss)
+listzero = getFileList(pathzero)
+listone = getFileList(pathone)
 
-for(j=0; j<listexp.length; j++){
-     open(pathss+listss[j]);
-     open(pathexp+listexp[j]);
+for(j=0; j<listzero.length; j++){
+     open(pathzero+listzero[j]);
+     open(pathone+listone[j]);
      run("Concatenate...", "all_open title=temp-stack");
      saveAs("Tiff", pathcat+"well"+j+1);
      //run("Close All");

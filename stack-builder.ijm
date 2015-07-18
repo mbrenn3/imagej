@@ -37,16 +37,58 @@ pathstacks = direxperiment+'collected-stacks'+'/'
 
 // Makes stacks in the stacks folder. You can either enter a path in the the select=, or leave it blank to prompt the user to select the nd files.
 // **The macro will quit if the prompt for the nd file is canceled.**
-run("Metamorph nd file (stack builder)", "select= all_timepoints all_positions open=[pathstacks]"); //pathss
-run("Metamorph nd file (stack builder)", "select= all_timepoints all_positions open=[pathstacks]"); //pathexp
-run("Metamorph nd file (stack builder)", "select= all_timepoints all_positions open=[pathstacks]");
-run("Metamorph nd file (stack builder)", "select= all_timepoints all_positions open=[pathstacks]");
-run("Metamorph nd file (stack builder)", "select= all_timepoints all_positions open=[pathstacks]");
-run("Metamorph nd file (stack builder)", "select= all_timepoints all_positions open=[pathstacks]");
-
-// Makes directory for the stacks to go
+File.makeDirectory(direxperiment+'collected-stacks/zero');
+pathzero = direxperiment+'collected-stacks/zero/'
+run("Metamorph nd file (stack builder)", "select= all_timepoints all_positions open=[pathzero]"); //pathss
+File.makeDirectory(direxperiment+'collected-stacks/one');
+pathone = direxperiment+'collected-stacks/one/'
+run("Metamorph nd file (stack builder)", "select= all_timepoints all_positions open=[pathone]");
+File.makeDirectory(direxperiment+'collected-stacks/seven');
+pathseven = direxperiment+'collected-stacks/seven/'
+run("Metamorph nd file (stack builder)", "select= all_timepoints all_positions open=[pathseven]");
+File.makeDirectory(direxperiment+'collected-stacks/fifteen');
+pathfifteen = direxperiment+'collected-stacks/fifteen/'
+run("Metamorph nd file (stack builder)", "select= all_timepoints all_positions open=[pathfifteen]");
+File.makeDirectory(direxperiment+'collected-stacks/twentyone');
+pathtwentyone = direxperiment+'collected-stacks/twentyone/'
+run("Metamorph nd file (stack builder)", "select= all_timepoints all_positions open=[pathtwentyone]");
 File.makeDirectory(direxperiment+'collected-stacks/exp');
-// Makes directory for the stacks to go
-File.makeDirectory(direxperiment+'collected-stacks/ss');
-// Makes directory for the stacks to go
+pathexp = direxperiment+'collected-stacks/exp/'
+run("Metamorph nd file (stack builder)", "select= all_timepoints all_positions open=[pathexp]");
+
 File.makeDirectory(direxperiment+'collected-stacks/concatenated-stacks');
+pathcat = direxperiment+'collected-stacks/concatenated-stacks/'
+
+listzero = getFileList(pathzero)
+listone = getFileList(pathone)
+listseven = getFileList(pathseven)
+listfifteen = getFileList(pathfifteen)
+listtwentyone = getFileList(pathtwentyone)
+listexp = getFileList(pathexp)
+
+for(j=0; j<listexp.length; j++){
+     open(pathzero+listzero[j]);
+     open(pathone+listone[j]);
+     run("Concatenate...", "all_open title=temp-stack");
+     saveAs("Tiff", pathcat+"well"+j+1);
+     //run("Close All");
+     File.makeDirectory(pathcat+"well"+j+1);
+     pathsaveseq = pathcat+"well"+j+1+"/";
+     run("Image Sequence... ", "format=TIFF name=sequence start=0 digits=4 save=pathsaveseq");
+     input =pathsaveseq;
+     listseq= getFileList(pathsaveseq);
+     print(listseq.length);
+     run("Close All");
+     for (k = 0; k < listseq.length; k++) {
+          action(input, listseq[k]);
+          function action(input, filename) {
+          open(input + filename);
+          //makeRectangle(473, 155, 106, 110);
+          run("Measure");
+          close();
+          }
+     }
+      //saveAs("Results", pathcat+"well"+j+1+".csv");
+      //run("Clear Results");
+      run("Close All");
+}
