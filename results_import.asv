@@ -22,4 +22,4 @@ for n = 1:number_of_calibration_points
 end
 
 csvwrite('calibration.csv',calibration)
-exp = wells(number_of_calibration_points*exposures_per_calibration+1:lenght(wells),:);
+exp = wells(
