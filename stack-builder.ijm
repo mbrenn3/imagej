@@ -69,6 +69,10 @@ listexp = getFileList(pathexp)
 for(j=0; j<listexp.length; j++){
      open(pathzero+listzero[j]);
      open(pathone+listone[j]);
+     open(pathseven+listseven[j]);
+     open(pathfifteen+listfifteen[j]);
+     open(pathtwentyone+listtwentyone[j]);
+     open(pathexp+listexp[j]);
      run("Concatenate...", "all_open title=temp-stack");
      saveAs("Tiff", pathcat+"well"+j+1);
      //run("Close All");

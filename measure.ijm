@@ -8,7 +8,7 @@ pathcat = dir+'concatenated-stacks/'
 listzero = getFileList(pathzero)
 listone = getFileList(pathone)
 
-for(j=0; j<listzero.length; j++){
+for(j=0; j<listexp.length; j++){
      open(pathzero+listzero[j]);
      open(pathone+listone[j]);
      run("Concatenate...", "all_open title=temp-stack");
