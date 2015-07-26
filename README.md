@@ -1,20 +1,15 @@
-# imagej
-importing metamorph MDA images and taking intensities
+# ImageJ multi-position intensity reader
 
-Steps:
+1. first install the [Metamorph nd & ROI files importer](http://imagejdocu.tudor.lu/doku.php?id=plugin:inputoutput:nd_stacks_builder:start) to ImageJ if you haven't already.
 
-1. Run the stack builder macro (stack-builder.ijm) selecting the calibration and expiriment nd files.
-* may have to change *.TIF to *tif 
+1. Run the stack builder macro (stack-builder.ijm) selecting the calibration and expiriment nd files. ( You may have to change *.TIF to *tif on some Unix systems)
     
      $ for old in *.TIF; do mv $old `basename $old .TIF`.tif; done
 
+1. Choose the main folder with all your images and .nd files as the 'Experiment Directory'. The macro will then rename this folder as RAW-MDA and make a folder around it with the original foldername.
 
-2. Rename all well1 to well01, well2 to well02 etc.
+1. Choose the nd files corresponding to your calibration points and finally your experimental timecourse.
 
-3. copy into exp and ss folders
+1. The macro will make stacks of all the positions and organize them into folders. Then it will measure the intensities in one huge table.
 
-4. Run measure macro (measure.txt)
-
-5. save Results.xls, open it and delete the header, save as Results.csv
-
-6. run stern volmer analysis. (may have to adjust where the calibration averages are taken from)
+1. Save the table and use makecolumns.m to reshape the data into positions.
